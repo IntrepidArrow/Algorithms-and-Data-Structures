@@ -4,6 +4,8 @@
  *  Description: Assignment 2 - Queues
  **************************************************************************** */
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -135,7 +137,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     private class DequeNode {
-        private Item item;
+        private final Item item;
         private DequeNode next;
         private DequeNode previous;
 
@@ -144,6 +146,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
+    // unit testing (required)
     public static void main(String[] args) {
 
         Deque<Integer> testDeque = new Deque<>();
@@ -159,9 +162,9 @@ public class Deque<Item> implements Iterable<Item> {
         testDeque.removeFirst();
         testDeque.removeLast();
 
-        System.out.println("size = " + testDeque.size());
+        StdOut.println("size = " + testDeque.size());
         for (Integer integer : testDeque) {
-            System.out.print(integer + " ");
+            StdOut.print(integer + " ");
         }
     }
 
