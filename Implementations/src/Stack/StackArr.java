@@ -42,7 +42,6 @@ public class StackArr<Item> implements Iterable<Item> {
     }
 
     public int size() {
-        System.out.println("stack.length: "+ stack.length);
         return count;
     }
 
