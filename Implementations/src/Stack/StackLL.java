@@ -24,6 +24,9 @@ public class StackLL<Item> implements Iterable<Item> {
     }
 
     public Item pop() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("Stack is empty. Cannot pop from empty stack.");
+        }
         Item headItem = head.item;
         head = head.next;
         size--;
