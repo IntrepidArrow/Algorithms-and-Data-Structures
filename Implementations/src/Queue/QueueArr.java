@@ -61,7 +61,8 @@ public class QueueArr<Item> implements Iterable<Item> {
 
     private class QueueArrIterator implements Iterator<Item> {
 
-        int pointer = 0 ;
+        int pointer = 0;
+
         @Override
         public boolean hasNext() {
             return pointer < queue.length;
@@ -69,7 +70,7 @@ public class QueueArr<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
-            if(!hasNext()) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             return queue[pointer++];
