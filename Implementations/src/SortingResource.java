@@ -16,8 +16,12 @@ public class SortingResource {
     }
 
     public static boolean isSorted(Comparable[] array) {
-        for (int i = 1; i < array.length; i++) {
-            if (less(array[i], array[i - 1])) {
+        return isSorted(array, 0, array.length-1);
+    }
+
+    public static boolean isSorted(Comparable[] array, int low, int high) {
+        for (int i = low+1; i <= high; i++) {
+            if(less(array[i], array[i-1])){
                 return false;
             }
         }
