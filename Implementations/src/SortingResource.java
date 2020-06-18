@@ -2,6 +2,7 @@ public class SortingResource {
 
     public static final String[] STRING = {"S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E"};
     public static final Integer[] PRIMES = {3, 7, 2, 5, 17, 19, 13, 11, 23};
+    public static final String[] SHELLSORT = {"S", "H", "E", "L", "L", "S", "O", "R", "T", "E", "X", "A", "M", "P", "L", "E"};
 
     public static boolean less(Comparable a, Comparable b) {
         return a.compareTo(b) < 0;
