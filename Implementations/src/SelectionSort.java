@@ -22,14 +22,13 @@ public class SelectionSort {
     }
 
     public static void main(String[] args) {
-        Integer[] primes = {3, 7, 2, 5, 17, 19, 13, 11};
-        for (Integer integer : primes) {
+        for (Integer integer : SortingResource.PRIMES) {
             System.out.print(integer + " ");
         }
         System.out.println();
 
-        SelectionSort.sort(primes);
-        for (Integer integer : primes) {
+        SelectionSort.sort(SortingResource.PRIMES);
+        for (Integer integer : SortingResource.PRIMES) {
             System.out.print(integer + " ");
         }
     }
