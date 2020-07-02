@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class Board {
 
-    private int[][] tiles;
+    private final int[][] tiles;
     private final int dimensions;
 
     // create a board from an n-by-n array of tiles,
@@ -202,24 +202,24 @@ public class Board {
         Board neighborTestBoard = new Board(neighborTest);
         Board twinBoard = new Board(twinTest);
 
-        // System.out.println(board.toString());
-        // System.out.println(board.hamming());
-        // System.out.println(goalBoard.hamming());
-        // System.out.println(board.isGoal());
-        // System.out.println(goalBoard.isGoal());
-        // System.out.println("Goal == Goal2: " + goalBoard.equals(goalBoard2));
-        // System.out.println("Goal == Board: " + goalBoard.equals(board));
-        //
-        // System.out.println(board.manhattan());
-        // System.out.println(goalBoard.manhattan());
-        //
-        // for (Board b : neighborTestBoard.neighbors()) {
-        //     System.out.println(b);
-        // }
-        //
-        // for (Board b : board.neighbors()) {
-        //     System.out.println(b);
-        // }
+        System.out.println(board.toString());
+        System.out.println(board.hamming());
+        System.out.println(goalBoard.hamming());
+        System.out.println(board.isGoal());
+        System.out.println(goalBoard.isGoal());
+        System.out.println("Goal == Goal2: " + goalBoard.equals(goalBoard2));
+        System.out.println("Goal == Board: " + goalBoard.equals(board));
+
+        System.out.println(board.manhattan());
+        System.out.println(goalBoard.manhattan());
+
+        for (Board b : neighborTestBoard.neighbors()) {
+            System.out.println(b);
+        }
+
+        for (Board b : board.neighbors()) {
+            System.out.println(b);
+        }
 
         System.out.println(twinBoard.twin());
 
