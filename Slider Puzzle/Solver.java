@@ -1,7 +1,7 @@
 /* *****************************************************************************
- *  Name:
- *  Date:
- *  Description:
+ *  Name: Abhimukth Chaudhuri
+ *  Date: July 2 2020
+ *  Description: Assignment 4
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.In;
@@ -24,8 +24,11 @@ public class Solver {
         nodes.insert(new Node(initial));
         twinBoardNodes.insert(new Node(initial.twin()));
 
+        Node minNode;
         while (true) {
-            if (processBoard(nodes) != null || processBoard(twinBoardNodes) != null) {
+            minNode = processBoard(nodes);
+            if (minNode != null || processBoard(twinBoardNodes) != null) {
+                this.goalNode = minNode;
                 break;
             }
         }
@@ -49,7 +52,10 @@ public class Solver {
 
     // is the initial board solvable
     public boolean isSolvable() {
-        return goalNode.board != null;
+        if (goalNode == null) {
+            return false;
+        }
+        return true;
     }
 
     // min number of moves to solve initial board; -1 if unsolvable

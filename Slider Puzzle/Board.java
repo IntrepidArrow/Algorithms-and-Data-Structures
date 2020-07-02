@@ -1,11 +1,10 @@
 /* *****************************************************************************
- *  Name:
- *  Date:
- *  Description:
+ *  Name: Abhimukth Chaudhuri
+ *  Date: July 2 2020
+ *  Description: Assignment 4
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdRandom;
 
 public class Board {
 
@@ -123,21 +122,15 @@ public class Board {
 
     // a board that is obtained by exchanging any pair of tiles
     public Board twin() {
-        int tile1X = StdRandom.uniform(dimension()), tile1Y = StdRandom.uniform(dimension());
-        if (tiles[tile1X][tile1Y] == 0) {
-            while (tiles[tile1X][tile1Y] != 0) {
-                tile1X = StdRandom.uniform(dimension());
-                tile1Y = StdRandom.uniform(dimension());
+        Board twinBoard = null;
+        for (int row = 0; row < dimensions; row++) {
+            for (int column = 0; column < dimensions - 1; column++) {
+                if (tiles[row][column] != 0 && tiles[row][column+1] != 0) {
+                    twinBoard = new Board(exchange(row, column, row, column+1));
+                }
             }
         }
-        int tile2X = StdRandom.uniform(dimension()), tile2Y = StdRandom.uniform(dimension());
-        if (tiles[tile2X][tile2Y] == 0 || (tile2X == tile1X && tile2Y == tile1Y)) {
-            while (tiles[tile2X][tile2Y] != 0 && (tile2X != tile1X || tile2Y != tile1Y)) {
-                tile2X = StdRandom.uniform(dimension());
-                tile2Y = StdRandom.uniform(dimension());
-            }
-        }
-        return new Board(exchange(tile1X, tile1Y, tile2X, tile2Y));
+        return twinBoard;
     }
 
     private int[][] arrayCopy(int[][] boardTiles) {
