@@ -6,6 +6,7 @@
 
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
+import edu.princeton.cs.algs4.StdDraw;
 
 public class KdTree {
 
@@ -38,29 +39,39 @@ public class KdTree {
     }
 
     private Node insert(Node node, Point2D point, int level) {
-        if (node == null) {
-            size += 1;
-            return new Node(point);
+        if (node == null && level == 0) {
+            Node newNode = new Node(point);
+            newNode.rect = new RectHV(0, 0, 1, 1);
+            size++;
+            return newNode;
         }
-
-        if (node.point.equals(point)) {
-            return node;
+        else if (node == null) {
+            size++;
+            return new Node(point);
         }
 
         if (isEven(level)) {
             if (point.x() < node.point.x()) {
                 node.left = insert(node.left, point, level + 1);
+                defineAARectangle(node.left, node.rect.xmin(), node.rect.ymin(), node.point.x(),
+                                  node.rect.ymax());
             }
             else {
                 node.right = insert(node.right, point, level + 1);
+                defineAARectangle(node.right, node.point.x(), node.rect.ymin(), node.rect.xmax(),
+                                  node.rect.ymax());
             }
         }
         else {
             if (point.y() < node.point.y()) {
                 node.left = insert(node.left, point, level + 1);
+                defineAARectangle(node.left, node.rect.xmin(), node.rect.ymin(), node.rect.xmax(),
+                                  node.point.y());
             }
             else {
                 node.right = insert(node.right, point, level + 1);
+                defineAARectangle(node.right, node.rect.xmin(), node.point.y(), node.rect.xmax(),
+                                  node.rect.ymax());
             }
         }
         return node;
@@ -68,6 +79,11 @@ public class KdTree {
 
     private boolean isEven(int number) {
         return number % 2 == 0;
+    }
+
+    private void defineAARectangle(Node childNode, double xMin, double yMin, double xMax,
+                                   double yMax) {
+        childNode.rect = new RectHV(xMin, yMin, xMax, yMax);
     }
 
     // does the set contain point p?
@@ -80,7 +96,7 @@ public class KdTree {
         if (node == null) return null;
         if ((node.point).equals(point)) return node;
 
-        Node result = null;
+        Node result;
         if (isEven(level)) {
             if (point.x() < node.point.x()) {
                 result = getPoint(node.left, point, level + 1);
@@ -102,7 +118,29 @@ public class KdTree {
 
     // draw all points to standard draw
     public void draw() {
+        draw(root, 0);
+    }
 
+    private void draw(Node node, int level) {
+        if (node == null) return;
+
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.setPenRadius(0.01);
+        node.point.draw();
+
+        if (isEven(level)) {
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setPenRadius();
+            StdDraw.line(node.point.x(), node.rect.ymin(), node.point.x(), node.rect.ymax());
+        }
+        else {
+            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.setPenRadius();
+            StdDraw.line(node.rect.xmin(), node.point.y(), node.rect.xmax(), node.point.y());
+        }
+
+        draw(node.left, level + 1);
+        draw(node.right, level + 1);
     }
 
     // all points that are inside the rectangle (or on the boundary)
@@ -146,7 +184,7 @@ public class KdTree {
         kdTree.insert(p4);
         kdTree.insert(p5);
 
-        System.out.println(kdTree.contains(p2));
-        System.out.println(kdTree.contains(nonExist));
+
+        kdTree.draw();
     }
 }
