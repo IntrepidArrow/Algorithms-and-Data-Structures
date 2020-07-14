@@ -1,10 +1,11 @@
 /* *****************************************************************************
- *  Name:
- *  Date:
- *  Description:
+ *  Name: Abhimukth Chaudhuri
+ *  Date: July 14, 2020
+ *  Description: Assignment 5
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.Point2D;
+import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdDraw;
 
@@ -146,17 +147,51 @@ public class KdTree {
     // all points that are inside the rectangle (or on the boundary)
     public Iterable<Point2D> range(RectHV rect) {
         if (rect == null) throw new IllegalArgumentException("Argument to range() is null");
-        return null;
+        Queue<Point2D> queryPoints = new Queue<>();
+        rangeSearch(root, queryPoints, rect);
+        return queryPoints;
+    }
+
+    private void rangeSearch(Node node, Queue<Point2D> queue, RectHV queryRect) {
+        if (node == null || !queryRect.intersects(node.rect)) return;
+
+        if (queryRect.contains(node.point)) queue.enqueue(node.point);
+        rangeSearch(node.left, queue, queryRect);
+        rangeSearch(node.right, queue, queryRect);
     }
 
     // a nearest neighbor in the set to point p; null if the set is empty
-    public Point2D nearest(Point2D p) {
-        if (p == null) throw new IllegalArgumentException("Argument to nearest() is null");
-        return null;
+    public Point2D nearest(Point2D point2D) {
+        Node node = root;
+        Point2D nearest = null;
+        double minDistance = Double.POSITIVE_INFINITY;
+        boolean searchVertical = true;
+        while (node != null) {
+            final double currentDistance = point2D.distanceSquaredTo(node.point);
+            if (currentDistance < minDistance) {
+                nearest = node.point;
+                minDistance = currentDistance;
+            }
+            if (searchVertical) {
+                if (point2D.x() <= node.point.x()) {
+                    node = node.left;
+                } else {
+                    node = node.right;
+                }
+            } else {
+                if (point2D.y() <= node.point.y()) {
+                    node = node.left;
+                } else {
+                    node = node.right;
+                }
+            }
+            searchVertical = !searchVertical;
+        }
+        return nearest;
     }
 
     private static class Node {
-        private Point2D point;
+        private final Point2D point;
         private Node left;
         private Node right;
         private RectHV rect;
@@ -176,7 +211,6 @@ public class KdTree {
         Point2D p4 = new Point2D(0.4, 0.7);
         Point2D p5 = new Point2D(0.9, 0.6);
 
-        Point2D nonExist = new Point2D(0.8, 0.8);
 
         kdTree.insert(p1);
         kdTree.insert(p2);

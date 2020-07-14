@@ -1,7 +1,7 @@
 /* *****************************************************************************
- *  Name:
- *  Date:
- *  Description:
+ *  Name: Abhimukth Chaudhuri
+ *  Date: July 14, 2020
+ *  Description: Assignment 5
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.Point2D;
@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 public class PointSET {
 
-    private TreeSet<Point2D> set;
+    private final TreeSet<Point2D> set;
 
     // Construct an empty set of points
     public PointSET() {
@@ -71,16 +71,16 @@ public class PointSET {
         if (p == null) {
             throw new IllegalArgumentException("Argument to nearest() is null");
         }
+
+        if (isEmpty()) return null;
+
         Point2D nearestPoint = set.first();
         for (Point2D point : set) {
-            if (p.distanceTo(point) < p.distanceTo(nearestPoint)) {
+            if (p.distanceSquaredTo(point) < p.distanceSquaredTo(nearestPoint)) {
                 nearestPoint = point;
             }
         }
         return nearestPoint;
     }
 
-    public static void main(String[] args) {
-
-    }
 }
